@@ -1,0 +1,19 @@
+{
+  "name": "db",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "generate": "bunx prisma generate",
+    "migrate": "bunx prisma migreate dev"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^6.16.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/client": "6.16.1"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "tasks",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.17",
+    "@ai-sdk/google": "^2.0.14",
+    "@ai-sdk/openai": "^2.0.30",
+    "@ai-sdk/xai": "^2.0.19",
+    "@google-cloud/local-auth": "2.1.0",
+    "ai": "^5.0.44",
+    "axios": "^1.12.2",
+    "googleapis": "105",
+    "resend": "^6.1.0"
+  }
+}

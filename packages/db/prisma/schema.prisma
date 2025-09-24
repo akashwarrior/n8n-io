@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  userName     String
+  passowrd     String
+  lastActiveAt DateTime      @updatedAt
+  
+  // relations
+  workFlows    WorkFlow[]
+  credentials  Credentials[]
+}
+
+model WorkFlow {
+  id          String       @id @default(uuid())
+  title       String
+  enabled     Boolean
+
+  // relations
+  nodes       Node[]
+  connections Connection[]
+
+  userId      String
+  User        User         @relation(fields: [userId], references: [id])
+}
+
+model Node {
+  id         String   @id @default(uuid())
+
+  posX       Int
+  posY       Int
+  data       Json
+
+  // relations
+  workFlowId String
+  WorkFlow   WorkFlow @relation(fields: [workFlowId], references: [id])
+}
+
+model Connection {
+  id         String   @id @default(uuid())
+  source     String
+  target     String
+
+  // relations
+  workFlowId String
+  WorkFlow   WorkFlow @relation(fields: [workFlowId], references: [id])
+}
+
+enum HTTP_METHOD {
+  GET
+  PUT
+  POST
+  DELETE
+}
+
+model Webhook {
+  id     String      @id @default(uuid())
+  title  String
+  method HTTP_METHOD
+  path   String
+  header String
+  secret String
+}
+
+model Credentials {
+  id       String @id @default(uuid())
+  title    String
+  platform String
+  data     Json
+
+  // relations
+  userId   String
+  User     User   @relation(fields: [userId], references: [id])
+}

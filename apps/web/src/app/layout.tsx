@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { CommandMenu } from "@/components/command-menu";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +12,9 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "Workflow Automation - n8n",
   description: "Automate worflows using n8n",
+  icons: {
+    icon: "/logo.svg"
+  }
 };
 
 export default function RootLayout({
@@ -18,9 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} antialiased`}>
-        {children}
+        <ThemeProvider>
+          {children}
+          <CommandMenu />
+        </ThemeProvider>
       </body>
     </html>
   );
